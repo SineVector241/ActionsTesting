@@ -56,5 +56,31 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: libspeexdsp-1.dll_x64
+          name: libspeexdsp-1.dll_x32
+          path: ./libspeexdsp/.libs/libspeexdsp-1.dll
+
+  Win_Build_arm64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Build Libraries
+        run: sudo apt-get install mingw-w64
+
+      - name: Clone Repository
+        run: git clone https://github.com/xiph/speexdsp.git
+
+      - name: Autogen
+        run: ./speexdsp/autogen.sh
+
+      - name: Configure And Build Arm64
+        run: ./speexdsp/configure --host=aarch64-w64-mingw32 && make
+
+      - name: Display File Type
+        run: file ./libspeexdsp/.libs/libspeexdsp-1.dll
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: libspeexdsp-1.dll_arm64
           path: ./libspeexdsp/.libs/libspeexdsp-1.dll
