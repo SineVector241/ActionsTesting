@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:        
-  Android_Build_x86_64:
+  Android_Build_arm64:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,7 +28,7 @@ jobs:
       - name: Autogen
         run: ./speexdsp/autogen.sh
 
-      - name: Configure And Build 64bit
+      - name: Configure And Build 64bit ARM
         run: |
           export TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64
           export TARGET=aarch64-linux-android
@@ -42,6 +42,48 @@ jobs:
           export STRIP=$TOOLCHAIN/bin/llvm-strip
           ./speexdsp/configure --host $TARGET
           make
-          
-      - name: Display Files=
-        run: dir ./libspeexdsp/.libs
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: libspeexdsp.so_arm64
+          path: ./libspeexdsp/.libs/libspeexdsp.so
+
+  Android_Build_arm32:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nttld/setup-ndk@v1
+        id: setup-ndk
+        with:
+          ndk-version: r27b
+          add-to-path: false
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
+      - name: Clone Repository
+        run: git clone https://github.com/xiph/speexdsp.git
+
+      - name: Autogen
+        run: ./speexdsp/autogen.sh
+
+      - name: Configure And Build 32bit ARM
+        run: |
+          export TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64
+          export TARGET=armv7a-linux-android
+          export API=21
+          export AR=$TOOLCHAIN/bin/llvm-ar
+          export CC="$TOOLCHAIN/bin/clang --target=$TARGET$API"
+          export AS=$CC
+          export CXX="$TOOLCHAIN/bin/clang++ --target=$TARGET$API"
+          export LD=$TOOLCHAIN/bin/ld
+          export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
+          export STRIP=$TOOLCHAIN/bin/llvm-strip
+          ./speexdsp/configure --host $TARGET
+          make
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: libspeexdsp.so_arm32
+          path: ./libspeexdsp/.libs/libspeexdsp.so
