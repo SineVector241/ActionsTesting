@@ -22,5 +22,5 @@ jobs:
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
-      - name: Display Base Files
-        run: dir
+      - name: Echo Android NDK
+        run: echo "$ANDROID_NDK_HOME"
