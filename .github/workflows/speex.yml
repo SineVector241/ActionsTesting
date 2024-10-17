@@ -27,6 +27,9 @@ jobs:
       - name: Display Base Files
         run: dir
 
+      - name: Display Win32 Files
+        run: dir ./win32
+
       - name: Display Files
         run: dir ./libspeexdsp
 
