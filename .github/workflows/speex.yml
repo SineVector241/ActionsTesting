@@ -15,9 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Build Libraries
-        run: sudo apt-get install mingw-w64
-
       - name: Clone Repository
         run: git clone https://github.com/xiph/speexdsp.git
 
@@ -25,4 +22,7 @@ jobs:
         run: ./speexdsp/autogen.sh
 
       - name: Configure And Build 32bit
-        run: ./speexdsp/configure CC=clang && make
+        run: ./speexdsp/configure CC=clang --target=armv7-windows-msvc && make
+
+      - name: Display File Type
+        run: file ./libspeexdsp/.libs/libspeexdsp-1.dll
