@@ -15,5 +15,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check Clang
-        run: clang -v
+      - name: Setup Build Libraries
+        run: sudo apt-get install mingw-w64
+
+      - name: Clone Repository
+        run: git clone https://github.com/xiph/speexdsp.git
+
+      - name: Autogen
+        run: ./speexdsp/autogen.sh
+
+      - name: Configure And Build 32bit
+        run: ./speexdsp/configure CC=clang && make
