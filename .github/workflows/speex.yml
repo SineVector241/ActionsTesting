@@ -21,8 +21,8 @@ jobs:
       - name: Autogen
         run: ./speexdsp/autogen.sh
 
-      - name: Configure And Build 32bit
-        run: ./speexdsp/configure CC=clang --host=armv7-windows-msvc --target=armv7-windows-msvc && make
+      - name: Configure And Build Arm64
+        run: ./speexdsp/configure CC=clang --target=armv7a-windows-win32 && make
 
       - name: Display Files
         run: dir ./libspeexdsp/.libs
