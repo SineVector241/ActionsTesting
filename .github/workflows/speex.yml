@@ -74,7 +74,7 @@ jobs:
         run: ./speexdsp/autogen.sh
 
       - name: Configure And Build Arm64
-        run: ./speexdsp/configure --host=aarch64-w64-mingw32 && make
+        run: ./speexdsp/configure --host=arm-none-eabi && make
 
       - name: Display File Type
         run: file ./libspeexdsp/.libs/libspeexdsp-1.dll
