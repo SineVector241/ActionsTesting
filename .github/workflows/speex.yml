@@ -35,24 +35,6 @@ jobs:
       - name: Autogen
         run: ./speexdsp/autogen.sh
 
-      - name: Configure And Build 64bit
-        run: ./speexdsp/configure CFLAGS=-m64 CXXFLAGS=-m64 LDFLAGS=-m64 && make
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: libspeexdsp.so.1.5.2_x64
-          path: ./libspeexdsp/.libs/libspeexdsp.so.1.5.2
-
-      - name: Configure And Build 32bit
-        run: ./speexdsp/configure CFLAGS=-m32 CXXFLAGS=-m32 LDFLAGS=-m32 && make
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: libspeexdsp.so.1.5.2_x32
-          path: ./libspeexdsp/.libs/libspeexdsp.so.1.5.2
-
       - name: Configure And Build 64bit ARM
         run: ./speexdsp/configure --host=aarch64-linux-gnu && make
 
