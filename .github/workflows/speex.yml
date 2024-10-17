@@ -29,11 +29,8 @@ jobs:
       - name: Clone Repository
         run: git clone https://github.com/xiph/speexdsp.git
 
-      - name: Run Autogen
-        run: ./speexdsp/autogen.sh
+      - name: Autogen, Configure And Build
+        run: ./speexdsp/autogen.sh && ./speexdsp/configure && make
 
-      - name: Configure
-        run: ./speexdsp/configure --prefix=./speexdsp
-
-      - name: Build Speex
-        run: make -C=./speexdsp
+      - name: List LibSpeex Files
+        run: dir ./libspeexdsp
