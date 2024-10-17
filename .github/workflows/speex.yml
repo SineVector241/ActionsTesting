@@ -24,5 +24,5 @@ jobs:
       - name: Configure And Build 32bit
         run: ./speexdsp/configure CC=clang --target=armv7-windows-msvc && make
 
-      - name: Display File Type
-        run: file ./libspeexdsp/.libs/libspeexdsp-1.dll
+      - name: Display Files
+        run: dir
