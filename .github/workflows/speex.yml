@@ -9,7 +9,85 @@ on:
 
   workflow_dispatch:
 
-jobs:        
+jobs:
+  Android_Build_x64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nttld/setup-ndk@v1
+        id: setup-ndk
+        with:
+          ndk-version: r27b
+          add-to-path: false
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
+      - name: Clone Repository
+        run: git clone https://github.com/xiph/speexdsp.git
+
+      - name: Autogen
+        run: ./speexdsp/autogen.sh
+
+      - name: Configure And Build 64bit
+        run: |
+          export TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64
+          export TARGET=x86_64-linux-android
+          export API=21
+          export AR=$TOOLCHAIN/bin/llvm-ar
+          export CC="$TOOLCHAIN/bin/clang --target=$TARGET$API"
+          export AS=$CC
+          export CXX="$TOOLCHAIN/bin/clang++ --target=$TARGET$API"
+          export LD=$TOOLCHAIN/bin/ld
+          export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
+          export STRIP=$TOOLCHAIN/bin/llvm-strip
+          ./speexdsp/configure --host $TARGET
+          make
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: libspeexdsp.so_x64
+          path: ./libspeexdsp/.libs/libspeexdsp.so
+
+  Android_Build_x32:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nttld/setup-ndk@v1
+        id: setup-ndk
+        with:
+          ndk-version: r27b
+          add-to-path: false
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
+      - name: Clone Repository
+        run: git clone https://github.com/xiph/speexdsp.git
+
+      - name: Autogen
+        run: ./speexdsp/autogen.sh
+
+      - name: Configure And Build 32bit
+        run: |
+          export TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64
+          export TARGET=i686-linux-android
+          export API=21
+          export AR=$TOOLCHAIN/bin/llvm-ar
+          export CC="$TOOLCHAIN/bin/clang --target=$TARGET$API"
+          export AS=$CC
+          export CXX="$TOOLCHAIN/bin/clang++ --target=$TARGET$API"
+          export LD=$TOOLCHAIN/bin/ld
+          export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
+          export STRIP=$TOOLCHAIN/bin/llvm-strip
+          ./speexdsp/configure --host $TARGET
+          make
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: libspeexdsp.so_x32
+          path: ./libspeexdsp/.libs/libspeexdsp.so
+          
   Android_Build_arm64:
     runs-on: ubuntu-latest
     steps:
