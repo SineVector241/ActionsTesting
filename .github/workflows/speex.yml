@@ -36,4 +36,4 @@ jobs:
         run: ./speexdsp/configure
 
       - name: Build Speex
-        run: make -C ./speexdsp
+        run: make -C ./speexdsp/Makefile.am
