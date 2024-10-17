@@ -10,28 +10,18 @@ on:
   workflow_dispatch:
 
 jobs:        
-  Win_Build_arm64:
+  Android_Build_x86_64:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Clone Repository
-        run: git clone https://github.com/xiph/speexdsp.git
-
-      - name: Autogen
-        run: ./speexdsp/autogen.sh
-
-      - name: Configure And Build Arm64
-        run: ./speexdsp/configure CC=clang --host=armv7a-pc-windows --target=armv7a-pc-windows && make
+      - uses: nttld/setup-ndk@v1
+        id: setup-ndk
+        with:
+          ndk-version: r27b
+          add-to-path: false
+      - run: ./build.sh
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Display Base Files
         run: dir
-
-      - name: Display Win32 Files
-        run: dir ./win32
-
-      - name: Display Files
-        run: dir ./libspeexdsp
-
-      - name: Display Lib Files
-        run: dir ./libspeexdsp/.libs
