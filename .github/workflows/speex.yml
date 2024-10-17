@@ -22,7 +22,7 @@ jobs:
         run: ./speexdsp/autogen.sh
 
       - name: Configure And Build Arm64
-        run: ./speexdsp/configure CC=clang CFLAGS="--target=aarch64-pc-windows" && make
+        run: ./speexdsp/configure CC=clang CFLAGS="--target=aarch64-pc-windows" --host=aarch64-pc-windows && make
 
       - name: Display Base Files
         run: dir
