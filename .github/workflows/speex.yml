@@ -30,7 +30,7 @@ jobs:
         run: git clone https://github.com/xiph/speexdsp.git
 
       - name: Autogen, Configure And Build
-        run: ./speexdsp/autogen.sh && ./speexdsp/configure --build=x86_64-pc-linux-gnu CFLAGS=-m32 CXXFLAGS=-m32 LDFLAGS=-m32 && make
+        run: ./speexdsp/autogen.sh && ./speexdsp/configure --build=i686-pc-linux-gnu CFLAGS=-m32 CXXFLAGS=-m32 LDFLAGS=-m32 && make
 
       - name: Display LibSpeex Built File
         run: file ./libspeexdsp/.libs/libspeexdsp.so
