@@ -25,4 +25,4 @@ jobs:
         run: ./speexdsp/configure CC=clang --target=armv7-windows-msvc && make
 
       - name: Display Files
-        run: dir ./libspeexdsp/
+        run: dir ./libspeexdsp/.libs
