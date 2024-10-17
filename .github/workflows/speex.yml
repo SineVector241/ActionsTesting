@@ -53,8 +53,11 @@ jobs:
           name: libspeexdsp.so.1.5.2_x32
           path: ./libspeexdsp/.libs/libspeexdsp.so.1.5.2
 
+      - name: Dunno
+        run: ln -s /usr/bin/arm-linux-gnueabi-gcc-4.5 /usr/bin/arm-linux-gnueabi-gcc
+
       - name: Configure And Build 64bit ARM
-        run: ./speexdsp/configure --build=arm-linux-gnueabi --prefix=${CSTOOL_DIR}/linux_arm_tool CFLAGS=-m64 CXXFLAGS=-m64 LDFLAGS=-m64 && make
+        run: ./speexdsp/configure --build=arm-linux-gnueabi CFLAGS=-m64 CXXFLAGS=-m64 LDFLAGS=-m64 && make
 
       - name: Display File Info
         run: file ./libspeexdsp/.libs/libspeexdsp.so.1.5.2
