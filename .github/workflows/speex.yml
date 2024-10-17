@@ -22,7 +22,7 @@ jobs:
         run: ./speexdsp/autogen.sh
 
       - name: Configure And Build Arm64
-        run: ./speexdsp/configure CC=clang --host=armv7a-windows-win32 && make
+        run: ./speexdsp/configure CC=clang --host=armv7a-pc-windows && make
 
       - name: Display Files
         run: dir ./libspeexdsp/.libs
