@@ -22,7 +22,7 @@ jobs:
         run: ./speexdsp/autogen.sh
 
       - name: Configure And Build Arm64
-        run: ./speexdsp/configure CC=aarch64-pc-windows-clang --host=aarch64-pc-windows AR=llvm-ar --build=x86_64-pc-linux-gnu --enable-gold=yes && make
+        run: ./speexdsp/configure CC=aarch64-pc-freebsd-clang --host=aarch64-pc-freebsd AR=llvm-ar --enable-gold=yes && make
 
       - name: Display Base Files
         run: dir
