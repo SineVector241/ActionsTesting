@@ -25,6 +25,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
+      - name: Setup Build Libraries
+        run: sudo apt-get install gcc-multilib g++-multilib
+
       # Runs a set of commands using the runners shell
       - name: Clone Repository
         run: git clone https://github.com/xiph/speexdsp.git
