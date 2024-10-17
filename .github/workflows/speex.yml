@@ -25,7 +25,7 @@ jobs:
         run: ./speexdsp/autogen.sh
 
       - name: Configure And Build 64bit
-        run: ./speexdsp/configure --host=x86_64-w64-mingw32-g++ && make
+        run: ./speexdsp/configure --host=x86_64-w64-mingw32 && make
 
       - name: List Directory
         run: dir ./libspeexdsp/.libs
