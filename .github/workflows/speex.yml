@@ -30,10 +30,10 @@ jobs:
         run: git clone https://github.com/xiph/speexdsp.git
 
       - name: Run Autogen
-        run: speexdsp/autogen.sh
+        run: ./speexdsp/autogen.sh
 
       - name: Configure
-        run: speexdsp/configure
+        run: ./speexdsp/configure
 
       - name: Build Speex
-        run: make -C speexdsp
+        run: make -C ./speexdsp
