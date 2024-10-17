@@ -36,4 +36,4 @@ jobs:
         run: ./speexdsp/configure
 
       - name: Build Speex
-        run: make ./speexdsp
+        run: make ./speexdsp/libspeexdsp
