@@ -35,5 +35,8 @@ jobs:
       - name: Autogen, Configure And Build
         run: ./speexdsp/autogen.sh && ./speexdsp/configure --build=i686-pc-linux-gnu CFLAGS=-m32 CXXFLAGS=-m32 LDFLAGS=-m32 && make
 
-      - name: Display LibSpeex Built File
-        run: file ./libspeexdsp/.libs/libspeexdsp.so
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: libspeexdsp.so.1.5.2
+          path: ./libspeexdsp/.libs/libspeexdsp.1.5.2
