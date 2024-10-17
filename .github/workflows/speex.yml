@@ -33,12 +33,12 @@ jobs:
           export TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64
           export TARGET=aarch64-linux-android
           export API=21
-          export AR=$ANDROID_NDK_HOME/bin/llvm-ar
-          export CC="$ANDROID_NDK_HOME/bin/clang --target=$TARGET$API"
+          export AR=$TOOLCHAIN/bin/llvm-ar
+          export CC="$TOOLCHAIN/bin/clang --target=$TARGET$API"
           export AS=$CC
-          export CXX="$ANDROID_NDK_HOME/bin/clang++ --target=$TARGET$API"
-          export LD=$ANDROID_NDK_HOME/bin/ld
-          export RANLIB=$ANDROID_NDK_HOME/bin/llvm-ranlib
-          export STRIP=$ANDROID_NDK_HOME/bin/llvm-strip
+          export CXX="$TOOLCHAIN/bin/clang++ --target=$TARGET$API"
+          export LD=$TOOLCHAIN/bin/ld
+          export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
+          export STRIP=$TOOLCHAIN/bin/llvm-strip
           ./speexdsp/configure --host $TARGET
           make
