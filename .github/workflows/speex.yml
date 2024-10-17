@@ -33,4 +33,4 @@ jobs:
         run: ./speexdsp/autogen.sh && ./speexdsp/configure && make
 
       - name: List LibSpeex Files
-        run: dir ./libspeexdsp
+        run: dir ./libspeexdsp/.libs
