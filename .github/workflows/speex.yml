@@ -38,9 +38,6 @@ jobs:
       - name: Configure And Build 64bit
         run: ./speexdsp/configure CFLAGS=-m64 CXXFLAGS=-m64 LDFLAGS=-m64 && make
 
-      - name: Display File Info
-        run: file ./libspeexdsp/.libs/libspeexdsp.so.1.5.2
-
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -50,9 +47,6 @@ jobs:
       - name: Configure And Build 32bit
         run: ./speexdsp/configure CFLAGS=-m32 CXXFLAGS=-m32 LDFLAGS=-m32 && make
 
-      - name: Display File Info
-        run: file ./libspeexdsp/.libs/libspeexdsp.so.1.5.2
-
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -60,7 +54,7 @@ jobs:
           path: ./libspeexdsp/.libs/libspeexdsp.so.1.5.2
 
       - name: Configure And Build 64bit ARM
-        run: ./speexdsp/configure CFLAGS=-m64 CXXFLAGS=-m64 LDFLAGS=-m64 CC=arm-linux-gnueabihf-gcc && make
+        run: ./speexdsp/configure --host=arm-linux-gnueabi CC=arm-linux-gnueabi-gcc CFLAGS=-m64 CXXFLAGS=-m64 LDFLAGS=-m64 && make
 
       - name: Display File Info
         run: file ./libspeexdsp/.libs/libspeexdsp.so.1.5.2
