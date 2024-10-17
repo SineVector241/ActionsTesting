@@ -39,4 +39,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: libspeexdsp.so.1.5.2
-          path: ./libspeexdsp/.libs/libspeexdsp.1.5.2
+          path: ./libspeexdsp/.libs/libspeexdsp.so.1.5.2
