@@ -36,7 +36,7 @@ jobs:
         run: ./speexdsp/autogen.sh
 
       - name: Configure And Build 64bit ARM
-        run: ./speexdsp/configure --host=aarch64-linux-gnu && make
+        run: ./speexdsp/configure --build=aarch64-linux-gnu --host=aarch64-linux-gnu --target=aarch64-linux-gnu && make
 
       - name: Display File Info
         run: file ./libspeexdsp/.libs/libspeexdsp.so.1.5.2
