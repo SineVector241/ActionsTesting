@@ -33,7 +33,7 @@ jobs:
         run: ./speexdsp/autogen.sh
 
       - name: Configure
-        run: ./speexdsp/configure
+        run: ./speexdsp/configure --prefix=./speexdsp
 
       - name: Build Speex
-        run: make --directory=./speexdsp/libspeexdsp
+        run: make -C=./speexdsp
