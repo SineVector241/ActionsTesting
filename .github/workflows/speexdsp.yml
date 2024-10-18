@@ -17,7 +17,25 @@ jobs:
       - name: Setup Build Libraries
         run: |
           curl -LO https://github.com/mstorsjo/llvm-mingw/releases/download/20241015/llvm-mingw-20241015-ucrt-ubuntu-20.04-x86_64.tar.xz
-          tar -xf llvm-mingw-20241015-ucrt-ubuntu-20.04-x86_64.tar.xz
+          tar -xf ./llvm-mingw-20241015-ucrt-ubuntu-20.04-x86_64.tar.xz
+          rm -rf ./llvm-mingw-20241015-ucrt-ubuntu-20.04-x86_64.tar.xz
 
-      - name: List Directory
-        run: dir
+      - name: Clone Repository
+        run: git clone https://github.com/xiph/speexdsp.git
+
+      - name: Autogen
+        run: ./speexdsp/autogen.sh
+
+      - name: Configure And Build 32bit
+        run: |
+          export TOOLCHAIN=./llvm-mingw-20241015-ucrt-ubuntu-20.04-x86_64
+          export TARGET=aarch64-w64-mingw32
+          export AR=$TOOLCHAIN/bin/llvm-ar
+          export CC="$TOOLCHAIN/bin/$TARGET-clang --target=$TARGET"
+          export AS=$CC
+          export CXX="$TOOLCHAIN/bin/$TARGET-clang++ --target=$TARGET"
+          export LD=$TOOLCHAIN/bin/ld
+          export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
+          export STRIP=$TOOLCHAIN/bin/llvm-strip
+          ./speexdsp/configure --host $TARGET
+          make
