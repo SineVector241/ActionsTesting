@@ -31,14 +31,14 @@ jobs:
           export TOOLCHAIN=./llvm-mingw-20241015-ucrt-ubuntu-20.04-x86_64
           export TARGET=aarch64-w64-mingw32
           export AR=$TOOLCHAIN/bin/$TARGET-llvm-ar
-          export CC="$TOOLCHAIN/bin/$TARGET-clang --target=$TARGET"
+          export CC="$TOOLCHAIN/bin/$TARGET-clang --target=$TARGET --sysroot=$TOOLCHAIN"
           export AS=$CC
           export CXX="$TOOLCHAIN/bin/$TARGET-clang++ --target=$TARGET"
           export LD=$TOOLCHAIN/bin/$TARGET-ld
           export RANLIB=$TOOLCHAIN/bin/$TARGET-llvm-ranlib
           export STRIP=$TOOLCHAIN/bin/llvm-strip
           ./speexdsp/configure --host $TARGET
-          dir ./libspeexdsp
+          make
       
       - name: List DIR
         run: dir ./libspeexdsp
