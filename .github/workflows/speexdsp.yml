@@ -32,7 +32,7 @@ jobs:
           export TARGET=aarch64-w64-mingw32
           export CC="./bin/$TARGET-clang --target=$TARGET-llvm-ar"
           export CXX="./bin/$TARGET-clang++ --target=$TARGET-llvm-ar"
-          ../speexdsp/configure --host=$TARGET --build=$TARGET
+          ../speexdsp/configure --host=$TARGET
           make
       
       - name: List DIR
