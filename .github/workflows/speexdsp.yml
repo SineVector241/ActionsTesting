@@ -42,4 +42,4 @@ jobs:
           make
       
       - name: List DIR
-        run: dir ./libspeexdsp/.libs
+        run: file ./libspeexdsp/.libs/libspeexdsp-1.dll
