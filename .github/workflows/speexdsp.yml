@@ -39,4 +39,6 @@ jobs:
           export STRIP=$TOOLCHAIN/bin/llvm-strip
           ./speexdsp/configure --host $TARGET
           dir ./libspeexdsp
-          make
+      
+      - name: List DIR
+        run: dir ./libspeexdsp
