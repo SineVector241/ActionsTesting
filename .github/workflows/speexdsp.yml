@@ -38,4 +38,5 @@ jobs:
           export RANLIB=$TOOLCHAIN/bin/$TARGET-llvm-ranlib
           export STRIP=$TOOLCHAIN/bin/llvm-strip
           ./speexdsp/configure --host $TARGET
+          dir ./libspeexdsp
           make
