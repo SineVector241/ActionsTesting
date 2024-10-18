@@ -28,11 +28,17 @@ jobs:
 
       - name: Configure And Build 32bit
         run: |
-          cd ./llvm-mingw-20241015-ucrt-ubuntu-20.04-x86_64
+          export TOOLCHAIN=./llvm-mingw-20241015-ucrt-ubuntu-20.04-x86_64
           export TARGET=aarch64-w64-mingw32
-          export CC="./bin/$TARGET-clang --target=$TARGET-llvm-ar"
-          export CXX="./bin/$TARGET-clang++ --target=$TARGET-llvm-ar"
-          ../speexdsp/configure --host=$TARGET
+          export AR=$TOOLCHAIN/bin/$TARGET-llvm-ar
+          export CC="$TOOLCHAIN/bin/$TARGET-clang --target=$TARGET"
+          export AS=$CC
+          export CXX="$TOOLCHAIN/bin/$TARGET-clang++ --target=$TARGET"
+          export LD=$TOOLCHAIN/bin/$TARGET-ld
+          export RANLIB=$TOOLCHAIN/bin/$TARGET-llvm-ranlib
+          export STRIP=$TOOLCHAIN/bin/llvm-strip
+          ./speexdsp/configure --host $TARGET
+          cp -r $TOOLCHAIN ./libspeexdsp
           make
       
       - name: List DIR
