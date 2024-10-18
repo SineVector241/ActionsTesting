@@ -17,7 +17,7 @@ jobs:
       - name: Setup Build Libraries
         run: |
           curl -LO https://github.com/mstorsjo/llvm-mingw/releases/download/20241015/llvm-mingw-20241015-ucrt-ubuntu-20.04-x86_64.tar.xz
-          tar -xz llvm-mingw-20241015-ucrt-ubuntu-20.04-x86_64.tar.xz
+          tar -xf llvm-mingw-20241015-ucrt-ubuntu-20.04-x86_64.tar.xz
 
       - name: List Directory
         run: dir
