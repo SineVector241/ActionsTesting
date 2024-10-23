@@ -30,3 +30,7 @@ jobs:
       - name: Build
         working-directory: ./build
         run: cmake --build . -j 2 --config Release --target package
+
+      - name: List DIR
+        working-directory: ./build
+        run: dir
