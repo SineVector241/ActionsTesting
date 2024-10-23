@@ -42,6 +42,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Build Libraries
+        run: sudo apt-get install g++-multilib
+
       - name: Clone Repository
         run: git clone https://github.com/xiph/opus.git
 
