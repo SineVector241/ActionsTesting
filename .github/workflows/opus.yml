@@ -1,0 +1,30 @@
+name: Opus Compile
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  Linux_Build_x64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Build Libraries
+        run: sudo apt-get install g++-multilib
+
+      - name: Clone Repository
+        run: git clone https://github.com/xiph/opus.git
+
+      - name: Autogen
+        run: ./opus/autogen.sh
+
+      - name: Configure And Build 32bit
+        run: ./speexdsp/configure CFLAGS=-m64 CXXFLAGS=-m64 LDFLAGS=-m64 && make
+
+      - name: List DIR
+        run: dir
