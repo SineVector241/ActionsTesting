@@ -155,5 +155,45 @@ jobs:
         working-directory: ./build
         run: cmake --build . -j 2 --config Release --target package
 
-      - name: List Dir
-        run: dir ./build
+      - name: Display File
+        run: file ./build/libopus.dll
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-x64-libopus.dll
+          path: ./build/libopus.dll
+
+  Win_Build_x32:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Build Libraries
+        run: sudo apt-get install mingw-w64
+
+      - name: Clone Repository
+        run: git clone https://github.com/xiph/opus.git
+
+      - name: Autogen
+        run: ./opus/autogen.sh
+
+      - name: Create Build Dir
+        run: mkdir build
+
+      - name: Configure
+        working-directory: ./build
+        run: cmake ../opus -DBUILD_SHARED_LIBS=ON -DOPUS_BUILD_PROGRAMS=ON -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_C_COMPILER=i686-w64-mingw32
+
+      - name: Build
+        working-directory: ./build
+        run: cmake --build . -j 2 --config Release --target package
+
+      - name: Display File
+        run: file ./build/libopus.dll
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-x32-libopus.dll
+          path: ./build/libopus.dll
