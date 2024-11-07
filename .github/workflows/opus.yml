@@ -206,9 +206,6 @@ jobs:
       - name: Clone Repository
         run: git clone https://github.com/xiph/opus.git
 
-      - name: List Dir
-        run: dir ./opus
-
       - name: Autogen
         run: ./opus/autogen.bat
 
@@ -224,4 +221,4 @@ jobs:
         run: cmake --build . -j 2 --config Release --target package
 
       - name: List Dir
-        run: dir ./build
+        run: dir ./build/Release
