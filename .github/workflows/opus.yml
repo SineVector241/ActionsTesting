@@ -206,6 +206,9 @@ jobs:
       - name: Clone Repository
         run: git clone https://github.com/xiph/opus.git
 
+      - name: List Dir
+        run: dir ./opus
+
       - name: Autogen
         run: ./opus/autogen.bat
 
