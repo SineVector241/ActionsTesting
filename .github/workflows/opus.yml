@@ -152,8 +152,11 @@ jobs:
         working-directory: ./build
         run: cmake --build . -j 2 --config Release --target package
 
-      - name: List Dir
-        run: dir ./build/Release
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-x64-opus.dll
+          path: ./build/Release/opus.dll
 
   Win_Build_x32:
     runs-on: windows-latest
@@ -177,8 +180,11 @@ jobs:
         working-directory: ./build
         run: cmake --build . -j 2 --config Release --target package
 
-      - name: List Dir
-        run: dir ./build/Release
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-x32-opus.dll
+          path: ./build/Release/opus.dll
           
   Win_Build_arm64:
     runs-on: windows-latest
@@ -202,5 +208,36 @@ jobs:
         working-directory: ./build
         run: cmake --build . -j 2 --config Release --target package
 
-      - name: List Dir
-        run: dir ./build/Release
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-arm64-opus.dll
+          path: ./build/Release/opus.dll
+
+  Win_Build_arm32:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Clone Repository
+        run: git clone https://github.com/xiph/opus.git
+
+      - name: Autogen
+        run: ./opus/autogen.bat
+
+      - name: Create Build Dir
+        run: mkdir build
+
+      - name: Configure
+        working-directory: ./build
+        run: cmake ../opus -G "Visual Studio 17 2022" -A ARM -DCMAKE_BUILD_TYPE=Release -DOPUS_BUILD_PROGRAMS=ON -DBUILD_TESTING=ON -DBUILD_SHARED_LIBS=ON
+
+      - name: Build
+        working-directory: ./build
+        run: cmake --build . -j 2 --config Release --target package
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-arm32-opus.dll
+          path: ./build/Release/opus.dll
