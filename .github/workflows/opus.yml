@@ -405,7 +405,7 @@ jobs:
 
       - name: Build
         working-directory: ./build
-        run: cmake --build . -j 2 --config Release --target package
+        run: cmake --build .
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
