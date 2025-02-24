@@ -407,12 +407,9 @@ jobs:
         working-directory: ./build
         run: cmake --build .
 
-      - name: List dir
-        run: ls -R
-
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: macos-x64-libopus.a
-          path: ./build/.libs/libopus.a
+          path: ./build/libopus.a
           
