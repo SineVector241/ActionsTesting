@@ -401,7 +401,7 @@ jobs:
 
       - name: Configure
         working-directory: ./build
-        run: cmake ../opus -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DCMAKE_OSX_ARCHITECTURES=x64
+        run: cmake ../opus -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DCMAKE_OSX_ARCHITECTURES=x86_64
 
       - name: Build
         working-directory: ./build
@@ -410,10 +410,10 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-           name: macos-x64-libopus.0.10.1.dylib
+           name: macos-x86_64-libopus.0.10.1.dylib
            path: ./build/libopus.0.10.1.dylib
 
-  MacOS_Build_x32:
+  MacOS_Build_arm64:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
@@ -432,7 +432,7 @@ jobs:
 
       - name: Configure
         working-directory: ./build
-        run: cmake ../opus -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DCMAKE_OSX_ARCHITECTURES=x86
+        run: cmake ../opus -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DCMAKE_OSX_ARCHITECTURES=aarch64
 
       - name: Build
         working-directory: ./build
@@ -441,5 +441,6 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-           name: macos-x32-libopus.0.10.1.dylib
+           name: macos-arm64-libopus.0.10.1.dylib
            path: ./build/libopus.0.10.1.dylib
+           
